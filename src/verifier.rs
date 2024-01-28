@@ -1,6 +1,6 @@
 use std::collections::VecDeque;
 use crate::util;
-use crate::util::{decode_hash,read_merkle_proof,MerkleProof, hash_internal};
+use crate::util::{decode_hash, read_merkle_proof, MerkleProof, hash_internal, encode_hash};
 
 
 pub fn run(proof_file: &String, hash_base64: &str) {
@@ -12,8 +12,14 @@ pub fn run(proof_file: &String, hash_base64: &str) {
 fn verify_merkle_proof(merkle_proof: Box<MerkleProof>, hash_base64: &str) {
     let root = decode_hash(hash_base64);
     let computed_root = compute_merkle_root_from_merkle_proof(merkle_proof);
-    println!("computed_root: {:?}", computed_root);
+    let encoded_computed_root = encode_hash(computed_root);
+    println!("computed_root: {:?}", encoded_computed_root);
     assert_eq!(computed_root, root);
+    if computed_root == root {
+        println!("Both roots are equal.");
+    } else {
+        println!("Roots are not equal.");
+    }
 }
 
 fn compute_merkle_root_from_merkle_proof(merkle_proof: Box<MerkleProof>) -> util::Hash32Bytes {
