@@ -1,4 +1,4 @@
-To Code base contains a merkle proof generator and a verifier generator.
+To Code base contains a merkle proof generator and a verifier.
 
 1. To run the prove phase run the following command
 run --package Cryptography_Assignment_2_MerkleTrees --bin Cryptography_Assignment_2_MerkleTrees prove 100 95
